@@ -107,6 +107,10 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         createPlayer();
     }
 
+    private void restartGame(){
+        startNewGame();
+    }
+
     private void buildGameBoard() {
 
 
@@ -184,7 +188,21 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
 
     }
 
+    private void gameLogic(float v, float v1)
+    {
+        movePlayer(v,v1);
+        if(player.getRow() == exitRow && player.getCol() == exitCol)
+        {
+            winsTextView.setText(resources.getString(R.string.win) + (++wins));
+        }
+        else if(player.getCol() == zombie.getCol()
+                && player.getRow() == zombie.getRow())
+        {
+            lossesTextView.setText(resources.getString(R.string.losses) +(++losses));
+            restartGame();
+        }
 
+    }
 
 
     private void movePlayer(float velocityX, float velocityY) {
@@ -226,20 +244,8 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
         zombieImageView.setX(zombie.getCol() * SQUARE + OFFSET);
         zombieImageView.setY(zombie.getRow() * SQUARE + OFFSET);
 
-
-        //game logic
-        //Game win
-        if(player.getRow() == exitRow && player.getCol() == exitCol)
-        {
-            winsTextView.setText(resources.getString(R.string.win) + (++wins));
-        }
-        else if(player.getCol() == zombie.getCol()
-                && player.getRow() == zombie.getRow())
-        {
-            lossesTextView.setText(resources.getString(R.string.losses) +(++losses));
-        }
-
     }
+
 
 
     @Override
@@ -289,8 +295,7 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
 
     @Override
     public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-
-        movePlayer(v,v1);
+        gameLogic(v,v1);
         return false;
     }
 
