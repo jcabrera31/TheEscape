@@ -142,7 +142,7 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
             }
 
     }
-
+    //constructor
     private void createZombie() {
 
         int row = 5;
@@ -190,6 +190,8 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
 
     private void gameLogic(float v, float v1)
     {
+
+
         movePlayer(v,v1);
         if(player.getRow() == exitRow && player.getCol() == exitCol)
         {
@@ -201,6 +203,7 @@ public class GameActivity extends Activity implements GestureDetector.OnGestureL
             lossesTextView.setText(resources.getString(R.string.losses) +(++losses));
             restartGame();
         }
+
 
     }
 
